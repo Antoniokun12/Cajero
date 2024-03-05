@@ -67,7 +67,10 @@ const ocultarAlerta = () => {
 };
 
 const agregar = () => {
-  if (usuario.value === "") {
+  if (saldo.value % 10000 !== 0) {
+    alerta.value = "Ingrese un saldo inicial valido";
+    ocultarAlerta();
+  } else if (usuario.value === "") {
     alerta.value = "Ingrese un usuario";
     ocultarAlerta();
   } else if (contraseña.value === "") {
@@ -95,6 +98,9 @@ const realizarOperacion = () => {
   if (cantidad.value === "") {
     alerta.value = "Ingrese una cantidad";
     ocultarAlerta();
+  } else if (cantidad.value % 10000 !== 0) {
+    alerta.value = "Ingrese una cantidad valida";
+    ocultarAlerta();
   } else if (usuarioOperacion.value === "") {
     alerta.value = "Ingrese el usuario";
     ocultarAlerta();
@@ -112,9 +118,12 @@ const realizarOperacion = () => {
       if (cantidad.value > saldo.value) {
         alerta.value = "No hay suficiente saldo para el retiro";
         ocultarAlerta();
+      } else if (saldo.value % 10000 !== 0) {
+        alerta.value = "Ingrese una cantidad valida";
+        ocultarAlerta();
       } else {
         saldo.value -= cantidad.value;
-        const denominaciones = [100000, 50000, 20000, 10000, 5000, 2000];
+        const denominaciones = [100000, 50000, 20000, 10000];
         billetes.value = [];
 
         for (const denominacion of denominaciones) {
